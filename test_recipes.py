@@ -28,3 +28,44 @@ def test_ingredient_eq():
 def test_ingredient_invalid_quantity():
     with pytest.raises(ValueError, match="Количество должно быть положительным"):
         Ingredient("Чёрный перец", 0, "г")
+
+
+
+
+def test_recipe_creation():
+    ingredients = [Ingredient("Спагетти", 300, "г"), Ingredient("Гуанчале", 150, "г")]
+    recipe = Recipe("Карбонара", ingredients)
+
+    assert recipe.title == "Карбонара"
+    assert recipe.ingredients == ingredients
+
+
+def test_recipe_add_ingredient_new():
+    recipe = Recipe("Карбонара")
+    recipe.add_ingredient(Ingredient("Пекорино Романо", 80, "г"))
+
+    assert len(recipe.ingredients) == 1
+    assert recipe.ingredients[0].name == "Пекорино Романо"
+
+
+def test_recipe_add_ingredient_merge():
+    recipe = Recipe("Карбонара")
+    recipe.add_ingredient(Ingredient("Желток", 4, "шт"))
+    recipe.add_ingredient(Ingredient("Желток", 2, "шт"))
+
+    assert len(recipe.ingredients) == 1
+    assert recipe.ingredients[0].quantity == 6.0
+
+
+def test_recipe_scale():
+    recipe = Recipe("Том-ям", [Ingredient("Кокосовое молоко", 400, "мл"), Ingredient("Креветки", 300, "г")])
+
+    scaled = recipe.scale(2)
+
+    assert isinstance(scaled, Recipe)
+    assert scaled is not recipe
+    assert scaled.ingredients[0].quantity == 800.0
+    assert scaled.ingredients[1].quantity == 600.0
+
+    assert recipe.ingredients[0].quantity == 400.0
+    assert recipe.ingredients[1].quantity == 300.0
