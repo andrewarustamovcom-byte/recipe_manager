@@ -12,7 +12,7 @@ class Ingredient:
     def quantity(self, value):
         value = float(value)
         if value <= 0:
-            raise ValueError ("Колчиество должно быть положительным")
+            raise ValueError ("Количество должно быть положительным")
         self._quantity = value
 
     def __str__(self):
