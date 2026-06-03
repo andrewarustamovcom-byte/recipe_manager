@@ -134,3 +134,32 @@ def test_shopping_list_add_operator():
     assert len(shopping1.get_list()) == 1
     assert len(shopping2.get_list()) == 1
     assert len(combo.get_list()) == 2
+
+
+
+def test_dietary_recipe_creation():
+    recipe = DietaryRecipe(
+        "Фалафель-боул",
+        "веган",
+        [Ingredient("Нут", 250, "г")]
+    )
+
+    assert recipe.title == "Фалафель-боул"
+    assert recipe.diet_type == "веган"
+
+
+def test_dietary_recipe_scale():
+    recipe = DietaryRecipe("Безглютеновые блины","без глютена",
+                           [Ingredient("Рисовая мука", 200, "г")])
+    scaled = recipe.scale(2)
+
+    assert isinstance(scaled, DietaryRecipe)
+    assert scaled.diet_type == "без глютена"
+    assert scaled.ingredients[0].quantity == 400.0
+
+def test_dietary_recipe_str():
+    recipe = DietaryRecipe("Фалафель","веган",
+                           [Ingredient("Нут", 250, "г")])
+
+    assert "[веган]" in str(recipe)
+    assert "Фалафель" in str(recipe)
