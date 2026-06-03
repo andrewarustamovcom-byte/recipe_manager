@@ -10,16 +10,16 @@ class Ingredient:
 
     @quantity.setter
     def quantity(self, value):
-        value = float(value)
         if value <= 0:
             raise ValueError ("Количество должно быть положительным")
+        value = float(value)
         self._quantity = value
 
     def __str__(self):
         return f"{self.name}: {self.quantity} {self.unit}"
 
     def __repr__(self):
-        return f"Ingredient ({self.name}, {self.quantity}, {self.unit})"
+        return f"Ingredient ('{self.name}', {self.quantity}, '{self.unit}')"
 
     def __eq__(self, other):
         if not isinstance(other, Ingredient):
@@ -39,7 +39,7 @@ class Recipe:
         self.ingredients.append(ingredient)
 
     @staticmethod
-    def is_valid_ratio(self, ratio):
+    def is_valid_ratio(ratio):
         return isinstance(ratio, (int, float)) and ratio > 0
 
     def scale(self, ratio):
@@ -58,8 +58,7 @@ class Recipe:
     
 class ShoppingList:
     def __init__(self):
-        def __init__(self):
-            self._items = []
+        self._items = []
 
     def add_recipe(self, recipe: Recipe, portions : float):
         if portions <= 0:
@@ -73,7 +72,7 @@ class ShoppingList:
 
     def get_list(self):
         total = {}
-        for ingredient, recipe_title in self.items:
+        for ingredient, recipe_title in self._items:
             k = (ingredient.name, ingredient.unit)
             if k in total:
                 total[k] += ingredient.quantity
