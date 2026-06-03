@@ -135,6 +135,18 @@ def test_shopping_list_add_operator():
     assert len(shopping2.get_list()) == 1
     assert len(combo.get_list()) == 2
 
+def test_shopping_list_remove_nonexistent_recipe():
+    carbonara = Recipe("Карбонара", [Ingredient("Спагетти", 300, "г")])
+    shopping = ShoppingList()
+    shopping.add_recipe(carbonara, 1)
+    shopping.remove_recipe("Том-ям")
+    items = shopping.get_list()
+    
+    assert len(items) == 1
+    assert items[0].name == "Спагетти"
+    assert items[0].quantity == 300.0
+
+
 
 
 def test_dietary_recipe_creation():
