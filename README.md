@@ -2,6 +2,13 @@
 Консольный Python-проект для управления рецептами, ингредиентами и списком покупок.  
 В проекте реализованы классы Ingredient, Recipe, ShoppingList и DietaryRecipe, а также тесты на pytest.
 
+## Структура
+├── .gitignore
+├── README.md
+├── recipes.py # Основные классы
+├── requirements.txt # Зависимости
+└── test_recipes.py # Тесты pytest
+
 ## Установка
 
 1. Склонируйте репозиторий:
@@ -19,8 +26,6 @@ pip install -r requirements.txt
 Запуск тестов:
 pytest
 
-
-Если нужно, можно импортировать классы из файла `recipes.py` в собственные скрипты Python.
 
 ## Автор
 
