@@ -6,7 +6,7 @@
 
 1. Склонируйте репозиторий:
 
-git clone https://special-computing-machine-5gjgvgr9wj5x3vqrx.github.dev
+git clone https://github.com/andrewarustamovcom-byte/recipe_manager
 cd recipe_manager
 
 
