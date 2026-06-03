@@ -57,7 +57,7 @@ class Recipe:
         return f"Блюдо:{self.title}. Ингредиенты: {', '.join(ings)}"
     
 class ShoppingList:
-    def __init__(self, ingredinet : Ingredient, recipe_title : str):
+    def __init__(self):
         def __init__(self):
             self._items = []
 
