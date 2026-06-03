@@ -8,11 +8,9 @@ def test_ingredient_creation():
     assert ing.quantity == 150.0
     assert ing.unit == "г"
 
-
 def test_ingredient_str():
     ing = Ingredient("Пекорино Романо", 80, "г")
     assert str(ing) == "Пекорино Романо: 80.0 г"
-
 
 def test_ingredient_eq():
     ing1 = Ingredient("Желток", 4, "шт")
@@ -23,7 +21,6 @@ def test_ingredient_eq():
     assert ing1 == ing2
     assert ing1 != ing3
     assert ing1 != ing4
-
 
 def test_ingredient_invalid_quantity():
     with pytest.raises(ValueError, match="Количество должно быть положительным"):
@@ -39,14 +36,12 @@ def test_recipe_creation():
     assert recipe.title == "Карбонара"
     assert recipe.ingredients == ingredients
 
-
 def test_recipe_add_ingredient_new():
     recipe = Recipe("Карбонара")
     recipe.add_ingredient(Ingredient("Пекорино Романо", 80, "г"))
 
     assert len(recipe.ingredients) == 1
     assert recipe.ingredients[0].name == "Пекорино Романо"
-
 
 def test_recipe_add_ingredient_merge():
     recipe = Recipe("Карбонара")
@@ -56,16 +51,28 @@ def test_recipe_add_ingredient_merge():
     assert len(recipe.ingredients) == 1
     assert recipe.ingredients[0].quantity == 6.0
 
-
 def test_recipe_scale():
     recipe = Recipe("Том-ям", [Ingredient("Кокосовое молоко", 400, "мл"), Ingredient("Креветки", 300, "г")])
-
     scaled = recipe.scale(2)
 
     assert isinstance(scaled, Recipe)
     assert scaled is not recipe
     assert scaled.ingredients[0].quantity == 800.0
     assert scaled.ingredients[1].quantity == 600.0
-
     assert recipe.ingredients[0].quantity == 400.0
     assert recipe.ingredients[1].quantity == 300.0
+
+def test_recipe_scale_invalid_ratio():
+    recipe = Recipe("Тирамису", [Ingredient("Маскарпоне", 250, "г")])
+    with pytest.raises(ValueError):
+        recipe.scale(0)
+    with pytest.raises(ValueError):
+        recipe.scale(-2)
+
+def test_recipe_len():
+    recipe = Recipe("Рамен")
+    recipe.add_ingredient(Ingredient("Мисо", 40, "г"))
+    recipe.add_ingredient(Ingredient("Лапша", 200, "г"))
+    recipe.add_ingredient(Ingredient("Мисо", 10, "г"))
+
+    assert len(recipe) == 2
